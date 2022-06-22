@@ -12,12 +12,11 @@ public class Nodo implements Comparable {
 
     protected Nodo padre;
 
-    public Nodo(Object valor, Nodo padre) {
+    public Nodo(Object valor) {
         this.valor = valor;
-        this.padre = padre;
-        /*PARA HIJOS VACIOS DECLARAR COMO NULOS?
-        this.izq = NULL;
-        this.der = NULL;*/
+        this.padre = null;
+        this.izq = null;
+        this.der = null;
     }
 
     //GETTERS Y SETTERS
@@ -44,20 +43,24 @@ public class Nodo implements Comparable {
     public Nodo getPadre() {
         return padre;
     }
+    
+    public void setPadre(Nodo padre) {
+        this.padre = padre;
+    }
 
-    public void agregarNodo(int n) {
-        if (this.getValor() != n) {            //si el nodo a agregar no tiene el mimso valor que el nodo raiz...
-            if (this.getValor() < n) {             //si el nodo a agregar es mayor el valor que el nodo raiz...
+    public void agregarNodo(Object o) {
+        if (this.getValor() != o) {            //si el nodo a agregar no tiene el mimso valor que el nodo raiz...
+            if (this.getValor() < o) {             //si el nodo a agregar es mayor el valor que el nodo raiz...
                 if (this.getDer() == null) {           //si este nodo no tiene un hijo en la derecha...
-                    this.setDer(new Nodo(n, this));      //creo el hijo derecho, asignando el valor y a mi* como padre
+                    this.setDer(new Nodo(o, this));      //creo el hijo derecho, asignando el valor y a mi* como padre
                 } else {
-                    this.der.agregarNodo(n);      //si tiene hijo busco de agregarlo entre la derecha, ACA RECORRE ENTRE LAS "HOJAS"
+                    this.der.agregarNodo(o);      //si tiene hijo busco de agregarlo entre la derecha, ACA RECORRE ENTRE LAS "HOJAS"
                 }
-            } else if (this.getValor() > n) {             //si el nodo a agregar es menor el valor que el nodo raiz...
+            } else if (this.getValor() > o) {             //si el nodo a agregar es menor el valor que el nodo raiz...
                 if (this.getIzq() == null) {           //si este nodo no tiene un hijo en la izquierda...
-                    this.setIzq(new Nodo(n, this));      //creo el hijo izquierdo, asignando el valor y a mi* como padre
+                    this.setIzq(new Nodo(o, this));      //creo el hijo izquierdo, asignando el valor y a mi* como padre
                 } else {
-                    this.izq.agregarNodo(n);      //si tiene hijo busco de agregarlo entre la izquierda, ACA RECORRE ENTRE LAS "HOJAS"
+                    this.izq.agregarNodo(o);      //si tiene hijo busco de agregarlo entre la izquierda, ACA RECORRE ENTRE LAS "HOJAS"
                 }
             }
         }
@@ -75,7 +78,7 @@ public class Nodo implements Comparable {
     }
 
     public ArrayList<Nodo> ascendente(Nodo n) {
-        ArrayList<Nodo> aux = new ArrayList<Nodo>();
+        ArrayList<Nodo> aux = new ArrayList<>();
         aux.add(this);
         if (n.getIzq() != null) {
             aux.addAll(ascendente(n.getIzq()));
