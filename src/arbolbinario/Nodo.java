@@ -1,15 +1,18 @@
 package arbolbinario;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Nodo implements Comparable {
 
-    protected int valor;
+    protected Object valor;
     //HIJOS
     protected Nodo izq;
     protected Nodo der;
 
     protected Nodo padre;
 
-    public Nodo(int valor, Nodo padre) {
+    public Nodo(Object valor, Nodo padre) {
         this.valor = valor;
         this.padre = padre;
         /*PARA HIJOS VACIOS DECLARAR COMO NULOS?
@@ -18,7 +21,7 @@ public class Nodo implements Comparable {
     }
 
     //GETTERS Y SETTERS
-    public int getValor() {
+    public Object getValor() {
         return valor;
     }
 
@@ -58,6 +61,30 @@ public class Nodo implements Comparable {
                 }
             }
         }
+    }
+
+    public int cantNodos(Nodo n) {
+        int cant = 0;
+        if (n.getDer() != null) {
+            cant += cantNodos(n.getDer());
+        }
+        if (n.getIzq() != null) {
+            cant += cantNodos(n.getIzq());
+        }
+        return cant++;
+    }
+
+    public ArrayList<Nodo> ascendente(Nodo n) {
+        ArrayList<Nodo> aux = new ArrayList<Nodo>();
+        aux.add(this);
+        if (n.getIzq() != null) {
+            aux.addAll(ascendente(n.getIzq()));
+        }
+        if (n.getDer() != null) {
+            aux.addAll(ascendente(n.getDer()));
+        }
+        Collections.sort(aux);
+        return aux;
     }
 
     @Override
