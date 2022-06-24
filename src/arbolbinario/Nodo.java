@@ -1,26 +1,27 @@
 package arbolbinario;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class Nodo implements Comparable {
+public class Nodo {
 
-    protected Object valor;
-    //HIJOS
+    protected Comparable valor;
     protected Nodo izq;
     protected Nodo der;
-
     protected Nodo padre;
 
-    public Nodo(Object valor) {
+    public Nodo(Comparable valor) {
         this.valor = valor;
         this.padre = null;
         this.izq = null;
         this.der = null;
     }
 
-    //GETTERS Y SETTERS
-    public Object getValor() {
+    public Nodo(Comparable valor, Nodo padre) {
+        this(valor);
+        this.padre = padre;
+    }
+
+    public Comparable getValor() {
         return valor;
     }
 
@@ -49,39 +50,46 @@ public class Nodo implements Comparable {
     }
 
     public void agregarNodo(Object o) {
-        if (this.getValor() != o) {            //si el nodo a agregar no tiene el mimso valor que el nodo raiz...
-            if (this.compareTo(o) > 0) {             //si el nodo a agregar es mayor el valor que el nodo raiz...
-                if (this.getDer() == null) {           //si este nodo no tiene un hijo en la derecha...
-                    this.setDer(new Nodo(o));      //creo el hijo derecho, asignando el valor y a mi* como padre
+        if (valor.compareTo(this.valor) != 0) {
+            if (valor.compareTo(this.valor) > 0) {
+                if (der == null) { // si el valor de la derecha es nulo, creo el nodo y me paso como padre
+                    der = new Nodo(valor, this); //
                 } else {
-                    this.der.agregarNodo(o);      //si tiene hijo busco de agregarlo entre la derecha, ACA RECORRE ENTRE LAS "HOJAS"
+                    der.agregarNodo(valor); // sino intento agregarlo en las hojas de la derecha
                 }
-            } else if (this.compareTo(o) < 0) {             //si el nodo a agregar es menor el valor que el nodo raiz...
-                if (this.getIzq() == null) {           //si este nodo no tiene un hijo en la izquierda...
-                    this.setIzq(new Nodo(o));      //creo el hijo izquierdo, asignando el valor y a mi* como padre
-                } else {
-                    this.izq.agregarNodo(o);      //si tiene hijo busco de agregarlo entre la izquierda, ACA RECORRE ENTRE LAS "HOJAS"
+            } else {
+                if (valor.compareTo(this.valor) < 0) {
+                    if (izq == null) { // si el valor de la izquierda es nulo
+                        izq = new Nodo(valor, this); // creo un nuevo nodo y me paso como padre
+                    } else {
+                        izq.agregarNodo(valor); // sino intento agregarlo en las hojas de la izquierda
+                    }
                 }
             }
         }
     }
 
-    public int cantNodos(Nodo n) {
-        int cant = 0;
-        if (n.getDer() != null) {
-            cant += cantNodos(n.getDer());
-        }
-        if (n.getIzq() != null) {
-            cant += cantNodos(n.getIzq());
-        }
-        return cant++;
+    @Override
+    public String toString() {
+        return this.valor + " (izq: " + this.izq + ", der: " + this.der + " )";
     }
 
-    public ArrayList<Nodo> ascendente(Nodo n) {
-        ArrayList<Nodo> aux = new ArrayList<>();
+    public boolean contains(Comparable valor) {
+        if (this.valor.compareTo(valor) == 0) // si comparo mi valor con el valor que me pasan y es igual retorno true
+        {
+            return true;
+        } else if (valor.compareTo(this.valor) > 0 && der != null) // si el valor que me pasan es mayor a mi y no tengo ya
+        // seteado mi hijo derecho
+        {
+            return der.contains(valor); // retorno
+        } else if (valor.compareTo(this.valor) < 0 && izq != null) {
+            return izq.contains(valor);
+        }
+        return false;
+    }
 
-        return aux;
-
+    //Punto 1. incorporar todos los elementos en forma ordenada ascendentemente.
+    public ArrayList<Comparable> ascendente() {
         /* PRIMER FORMA DISEÑADA
         aux.add(this);
         if (n.getIzq() != null) {
@@ -92,15 +100,22 @@ public class Nodo implements Comparable {
         }
         Collections.sort(aux);
         return aux;*/
+
+        ArrayList<Comparable> aux = new ArrayList<>();
+        if (this.getIzq() != null) {
+            aux.addAll(this.getIzq().ascendente());
+        }
+        aux.add(this.getValor());
+        if (this.getDer() != null) {
+            aux.addAll(this.getDer().ascendente());
+        }
+        return aux;
     }
 
-    public ArrayList<Nodo> descendente(Nodo n) {
-        ArrayList<Nodo> aux = new ArrayList<>();
-
-        return aux;
-
+    //Punto 2. incorporar todos los elementos en forma ordenada descendentemente.
+    public ArrayList<Comparable> descendente() {
         /* PRIMER FORMA DISEÑADA
-        aux.add(this);
+        aux.add(this.getValor());
         if (n.getIzq() != null) {
             aux.addAll(ascendente(n.getIzq()));
         }
@@ -109,15 +124,27 @@ public class Nodo implements Comparable {
         }
         Collections.sort(aux).reverse;
         return aux;*/
+
+        ArrayList<Comparable> aux = new ArrayList<>();
+        if (this.getDer() != null) {
+            aux.addAll(this.getDer().descendente());
+        }
+        aux.add(this.getValor());
+        if (this.getIzq() != null) {
+            aux.addAll(this.getIzq().descendente());
+        }
+        return aux;
     }
 
-    @Override
-    public int compareTo(Object o) {                //Compara por valor numerico
-        return (this.getValor().compareTo(o.getValor()));   //BUSCAR ERROR
-    }
-
-    @Override
-    public String toString() {
-        return "nodo: " + this.getValor();
+    //Punto 3. contar la cantidad de elementos del arbol
+    public int cantNodos() {
+        int cant = 1;
+        if (this.getDer() != null) {
+            cant += this.getDer().cantNodos();
+        }
+        if (this.getIzq() != null) {
+            cant += this.getIzq().cantNodos();
+        }
+        return cant;
     }
 }

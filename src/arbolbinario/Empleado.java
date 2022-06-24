@@ -1,6 +1,6 @@
 package arbolbinario;
 
-public class Empleado extends Persona {
+public class Empleado extends Persona implements Comparable {
 
     protected double sueldo;
     protected int legajo;
@@ -29,6 +29,12 @@ public class Empleado extends Persona {
 
     public void setLegajo(int legajo) {
         this.legajo = legajo;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Empleado e = (Empleado) (o);
+        return (this.getLegajo() - e.getLegajo());  //TERMINAR DE VER
     }
 
 }
