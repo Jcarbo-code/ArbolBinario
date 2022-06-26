@@ -18,6 +18,10 @@ public class AccionOrdenAsc extends AccionEjecutable {
         return aux;
     }
 
+    public void vaciarElementos() {
+        this.elementos = new ArrayList<>();
+    }
+
     @Override
     public void ejecutar(Comparable c) {
         this.elementos.add(c);

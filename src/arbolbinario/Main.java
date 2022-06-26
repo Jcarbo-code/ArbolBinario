@@ -1,6 +1,10 @@
 package arbolbinario;
 
-import accionEjecutable.AccionEjecutable;
+import accionEjecutable.AccionContar;
+import accionEjecutable.AccionMayor;
+import accionEjecutable.AccionMenor;
+import accionEjecutable.AccionOrdenAsc;
+import accionEjecutable.AccionOrdenDesc;
 
 public class Main {
 
@@ -42,10 +46,58 @@ public class Main {
         empleados.agregarNodo(e6);
         empleados.agregarNodo(e7);
 
-        System.out.println(animales);
+        AccionContar contar = new AccionContar();
+        AccionMayor buscarMayor = new AccionMayor();
+        AccionMenor buscarMenor = new AccionMenor();
+        AccionOrdenAsc ordenAsc = new AccionOrdenAsc();
+        AccionOrdenDesc ordenDesc = new AccionOrdenDesc();
 
-        System.out.println(numeros);
+        imprimirCant(numeros, contar);
+        imprimirAscendente(numeros, ordenAsc);
+        imprimirDescendente(numeros, ordenDesc);
+        imprimirMenor(numeros, buscarMenor);
+        imprimirMayor(numeros, buscarMayor);
 
-        System.out.println(empleados);
+        imprimirCant(animales, contar);
+        imprimirAscendente(animales, ordenAsc);
+        imprimirDescendente(animales, ordenDesc);
+        imprimirMenor(animales, buscarMenor);
+        imprimirMayor(animales, buscarMayor);
+
+        imprimirCant(empleados, contar);
+        imprimirAscendente(empleados, ordenAsc);
+        imprimirDescendente(empleados, ordenDesc);
+        imprimirMenor(empleados, buscarMenor);
+        imprimirMayor(empleados, buscarMayor);
+    }
+
+    public static void imprimirCant(Nodo n, AccionContar contar) {
+        n.recorrer(contar);
+        System.out.println("cantidad de elementos del arbol: " + contar.getCant());
+        contar.setCant(0);
+    }
+
+    private static void imprimirAscendente(Nodo n, AccionOrdenAsc orden) {
+        n.recorrer(orden);
+        System.out.println("elementos en orden ascendente: " + orden.getElementos());
+        orden.vaciarElementos();
+    }
+
+    private static void imprimirDescendente(Nodo n, AccionOrdenDesc orden) {
+        n.recorrer(orden);
+        System.out.println("elementos en orden descendente: " + orden.getElementos());
+        orden.vaciarElementos();
+    }
+
+    private static void imprimirMenor(Nodo n, AccionMenor menor) {
+        n.recorrer(menor);
+        System.out.println("el menor elemento del arbol es: " + menor.getMenor());
+        menor.setMenor(null);
+    }
+
+    private static void imprimirMayor(Nodo n, AccionMayor mayor) {
+        n.recorrer(mayor);
+        System.out.println("el mayor elemento del arbol es: " + mayor.getMayor());
+        mayor.setMayor(null);
     }
 }

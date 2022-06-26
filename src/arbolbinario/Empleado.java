@@ -34,7 +34,7 @@ public class Empleado extends Persona implements Comparable {
     @Override
     public int compareTo(Object o) {
         Empleado e = (Empleado) (o);
-        return (this.getLegajo() - e.getLegajo());  //TESTEAR
+        return (this.getLegajo() - e.getLegajo());
     }
 
     @Override
