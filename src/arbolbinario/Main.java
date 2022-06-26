@@ -1,57 +1,30 @@
 package arbolbinario;
 
+import accionEjecutable.AccionEjecutable;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        ArbolBinario numeros = new ArbolBinario();
-        Nodo raiz = new Nodo(8);
-        numeros.setRaiz(raiz);
-        //	numeros.addValor(8);
-        numeros.addValor(3);
-        numeros.addValor(1);
-        numeros.addValor(6);
-        numeros.addValor(10);
-        numeros.addValor(14);
-        numeros.addValor(13);
-        numeros.addValor(4);
-        numeros.addValor(7);
+        Nodo numeros = new Nodo(8, null);
+        numeros.agregarNodo(3);
+        numeros.agregarNodo(1);
+        numeros.agregarNodo(6);
+        numeros.agregarNodo(10);
+        numeros.agregarNodo(14);
+        numeros.agregarNodo(13);
+        numeros.agregarNodo(4);
+        numeros.agregarNodo(7);
 
-        /*
-		//imprimo nodo raiz
-		System.out.println(raiz);
-		//imprimo nodo ordenado
-		System.out.println(numeros.recorrer());
-		//imprimo el arbol
-		System.out.println(numeros);
-         */
-        ArbolBinario animales = new ArbolBinario();
-        Nodo raizAnimales = new Nodo("gato");
-        animales.setRaiz(raizAnimales);
-        animales.addValor("gato");
-        animales.addValor("canario");
-        animales.addValor("perro");
-        animales.addValor("conejo");
-        animales.addValor("liebre");
-        animales.addValor("jabali");
-        animales.addValor("carpincho");
-        animales.addValor("zorro");
-        animales.addValor("aguilucho");
-
-        //imprimo nodo raiz 
-        System.out.println(raizAnimales);
-        //imprimo nodo ordenado
-        // System.out.println(animales.recorrer());
-        //imprimo el arbol
-        System.out.println(animales);
-        System.out.println(animales.contarElementos());
-
-        System.out.println(animales.recorrerDescendente());
-
-        ArbolBinario empleados = new ArbolBinario();
-        Empleado eRaiz = new Empleado(90000, 4419, 39590302, "Joe", "Carbo");
-        Nodo raizEmpleados = new Nodo(eRaiz);
-        empleados.setRaiz(raizEmpleados);
+        Nodo animales = new Nodo("gato", null);
+        animales.agregarNodo("canario");
+        animales.agregarNodo("perro");
+        animales.agregarNodo("conejo");
+        animales.agregarNodo("liebre");
+        animales.agregarNodo("jabali");
+        animales.agregarNodo("carpincho");
+        animales.agregarNodo("zorro");
+        animales.agregarNodo("aguilucho");
 
         Empleado e1 = new Empleado(100000, 7253, 25458123, "Juan", "Garcia");
         Empleado e2 = new Empleado(150000, 1222, 23581111, "María", "Perez");
@@ -61,14 +34,18 @@ public class Main {
         Empleado e6 = new Empleado(140500, 9253, 35252232, "Rosa", "Blotta");
         Empleado e7 = new Empleado(110000, 1530, 15811654, "Florencia", "Paz");
 
-        //	numeros.addValor(8);
-        empleados.addValor(e1);
-        empleados.addValor(e2);
-        empleados.addValor(e3);
-        empleados.addValor(e4);
-        empleados.addValor(e5);
-        empleados.addValor(e6);
-        empleados.addValor(e7);
-    }
+        Nodo empleados = new Nodo(e1, null);
+        empleados.agregarNodo(e2);
+        empleados.agregarNodo(e3);
+        empleados.agregarNodo(e4);
+        empleados.agregarNodo(e5);
+        empleados.agregarNodo(e6);
+        empleados.agregarNodo(e7);
 
+        System.out.println(animales);
+
+        System.out.println(numeros);
+
+        System.out.println(empleados);
+    }
 }

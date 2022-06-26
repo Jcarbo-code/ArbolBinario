@@ -2,24 +2,24 @@ package arbolbinario;
 
 public class Empleado extends Persona implements Comparable {
 
-    protected double sueldo;
+    protected int sueldo;
     protected int legajo;
 
     public Empleado() {
         super();
     }
 
-    public Empleado(double sueldo, int legajo, int dni, String nombre, String apellido) {
+    public Empleado(int sueldo, int legajo, int dni, String nombre, String apellido) {
         super(dni, nombre, apellido);
         this.sueldo = sueldo;
         this.legajo = legajo;
     }
 
-    public double getSueldo() {
+    public int getSueldo() {
         return sueldo;
     }
 
-    public void setSueldo(double sueldo) {
+    public void setSueldo(int sueldo) {
         this.sueldo = sueldo;
     }
 
@@ -34,7 +34,11 @@ public class Empleado extends Persona implements Comparable {
     @Override
     public int compareTo(Object o) {
         Empleado e = (Empleado) (o);
-        return (this.getLegajo() - e.getLegajo());  //TERMINAR DE VER
+        return (this.getLegajo() - e.getLegajo());  //TESTEAR
     }
 
+    @Override
+    public String toString() {
+        return (this.nombre + " " + this.apellido + ": (DNI " + this.dni + ", sueldo: " + this.sueldo + "legajo " + this.legajo + ")");
+    }
 }
