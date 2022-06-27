@@ -20,6 +20,7 @@ public class AccionOrdenAsc extends AccionEjecutable {
 
     public void vaciarElementos() {
         this.elementos = new ArrayList<>();
+       
     }
 
     @Override

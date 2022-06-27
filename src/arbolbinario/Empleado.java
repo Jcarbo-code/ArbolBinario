@@ -1,6 +1,6 @@
 package arbolbinario;
 
-public class Empleado extends Persona implements Comparable {
+public class Empleado extends Persona implements Comparable<Empleado> {
 
     protected int sueldo;
     protected int legajo;
@@ -32,9 +32,8 @@ public class Empleado extends Persona implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        Empleado e = (Empleado) (o);
-        return (this.getLegajo() - e.getLegajo());
+    public int compareTo(Empleado o) {
+        return (this.getLegajo() - o.getLegajo());
     }
 
     @Override
